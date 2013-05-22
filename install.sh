@@ -14,7 +14,7 @@ fi
 read -e -p "Enter diffbot token: " DIFFBOT_TOKEN
 read -e -p "Enter web server port (typically 80): " HTTP_PORT
 
-$DIR=`pwd`
+DIR=`pwd`
 
 # ensure needed packages
 apt-get update -y
@@ -101,6 +101,8 @@ else
     /etc/init.d/elasticsearch restart
 fi
 
+cd $DIR
+
 # artiklite otsimine
 
 echo "Installing RSS fetcher"
@@ -109,8 +111,8 @@ cd findarticle
 
 npm install
 
-ln -s "$DIR/setup/findarticle" "/etc/init.d/findarticle"
-update-rc.d getarticle defaults
+ln -s "$DIR/findarticle/setup/findarticle" "/etc/init.d/findarticle"
+update-rc.d findarticle defaults
 
 cd "$DIR"
 
@@ -119,12 +121,12 @@ cd "$DIR"
 echo "Installing Article parser"
 
 cd getarticle
-sed 's/DIFFBOT_TOKEN/${DIFFBOT_TOKEN}/g' config.json.sample > config.json
+sed "s/DIFFBOT_TOKEN/${DIFFBOT_TOKEN}/g" config.json.sample > config.json
 
 npm install
 
-ln -s "$DIR/setup/findarticle" "/etc/init.d/findarticle"
-update-rc.d findarticle defaults
+ln -s "$DIR/getarticle/setup/getarticle" "/etc/init.d/getarticle"
+update-rc.d getarticle defaults
 
 cd "$DIR"
 
@@ -133,11 +135,11 @@ cd "$DIR"
 echo "Installing Web service"
 
 cd artikliotsing
-sed 's/HTTP_PORT/${HTTP_PORT}/g' config.json.sample > config.json
+sed "s/HTTP_PORT/${HTTP_PORT}/g" config.json.sample > config.json
 
 npm install
 
-ln -s "$DIR/setup/artikliotsing" "/etc/init.d/artikliotsing"
+ln -s "$DIR/artikliotsing/setup/artikliotsing" "/etc/init.d/artikliotsing"
 update-rc.d artikliotsing defaults
 
 cd "$DIR"
@@ -148,8 +150,10 @@ echo "All services installed. Starting services ..."
 /etc/init.d/getarticle start
 /etc/init.d/artikliotsing start
 
+echo ""
 echo "Log files for the services:"
 echo "    /var/log/findarticle.log"
 echo "    /var/log/getarticle.log"
 echo "    /var/log/artikliotsing.log"
-
+echo ""
+echo "INSTALL COMPLETED!"
