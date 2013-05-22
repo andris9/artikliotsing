@@ -11,7 +11,15 @@ sudo su
 cd /opt
 ```
 
-Järgmiseks tuleks alla laadida artikliotsingu source ja selle installiskript käivitada
+Järgmiseks tuleks alla laadida artikliotsingu source ja selle installiskript käivitada.
+
+Kõige lihtsam viis on teha seda nii:
+
+```bash
+wget -qO- https://raw.github.com/andris9/artikliotsing/master/quickinstall.sh | sudo /bin/bash
+```
+
+Aga kui tahad midagi täpsemalt valida, siis selle käsu sisuks on see:
 
 ```bash
 wget https://github.com/andris9/artikliotsing/archive/master.tar.gz
