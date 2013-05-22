@@ -2,6 +2,8 @@
 
 ## Install
 
+See juhis töötab Ubuntu põhistes masinates. Sobivad nii VirtualBox serverid kohalikus masinas, kui ka Amazon EC2, Rackspace vmt. virtuaalserverid. Eelnevalt midagi muud installida ei ole vaja.
+
 Rakendus tuleks installida root õigustes. Juhul kui ei soovi rakendust juurkasutaja õigusest jooksutada tuleks peale installi veidi konfiguratsiooni muuta, kuid installimise hetkel on lihtsam nii.
 
 Esiteks tuleks siis käivitada root õigused ja minna kataloogi, kuhu peaks rakenduse installima
