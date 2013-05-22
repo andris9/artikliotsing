@@ -1,10 +1,14 @@
 # Artikliotsing
 
-## Install
+## Eeldused
 
 See juhis töötab Ubuntu põhistes masinates. Sobivad nii VirtualBox serverid kohalikus masinas, kui ka Amazon EC2, Rackspace vmt. virtuaalserverid. Eelnevalt midagi muud installida ei ole vaja. Parem olekski kasutada täiesti tühja Ubuntu 12.04+ serverit, kuna siis on konfliktide oht väiksem.
 
 Rakendus on arendatud ja testiud Ubuntu 13.04 versiooniga.
+
+Juhul, kui kasutad VirtualBox põhist virtuaalmasinat, siis tuleks seadistada võrk vastavalt [sellele juhendile](http://christophermaier.name/blog/2010/09/01/host-only-networking-with-virtualbox). Muidu ei saa oma masinast brauseriga virtuaalmasinale ligi. Vaikimisi kasutavad VirtualBox serverid NAT põhist ühendust internetti pääsemiseks, aga sellele lisaks on vajada veel teine `host-only` ühendus, mis võimaldab IP alusel masinale ligi pääseda.
+
+## Install
 
 Rakendus tuleks installida root õigustes. Juhul kui ei soovi rakendust juurkasutaja õigusest jooksutada tuleks peale installi veidi konfiguratsiooni muuta, kuid installimise hetkel on lihtsam nii.
 
