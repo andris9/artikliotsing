@@ -11,7 +11,7 @@ sudo su
 cd /opt
 ```
 
-Järgmiseks tuleks alla laadida artikliotsingu source ja selle installiskript käivitada.
+Järgmiseks tuleks järgmiste käskudega alla laadida artikliotsingu source ja selle installiskript käivitada.
 
 ```bash
 wget https://github.com/andris9/artikliotsing/archive/master.tar.gz
