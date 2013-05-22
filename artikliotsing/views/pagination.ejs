@@ -1,0 +1,55 @@
+<% if(pages > 1){ %>
+    <section>
+        <div class="row">
+            <div class="span12">
+                <div class="pagination">
+                    <ul>
+                        <% if(page > 2){ %>
+                            <li>
+                                <a href="/search?q=<%- encoded_query %>&page=<%= page - 1 %>">←</a>
+                            </li>
+                        <% } %>
+
+                        <% if(page == 2){ %>
+                            <li>
+                                <a href="/search?q=<%- encoded_query %>">←</a>
+                            </li>
+                        <% } %>
+
+                        <% if(page <= 1){ %>
+                            <li class="disabled">
+                                <a href="/search?q=<%- encoded_query %>">←</a>
+                            </li>
+                        <% } %>
+
+
+                        <% for(var i=0; i<page_list.length; i++){%>
+
+                            <% if(page_list[i].disabled) {%>
+                                <li class="disabled"><a href="javascript:void(0)" >...</a></li>
+                            <% } %>
+
+                            <% if(!page_list[i].disabled) {%>
+                                <li <% if(page_list[i].active){%> class="active"<%}%>><a href="/search?q=<%- encoded_query %><% if(page_list[i].page != 1){%>&page=<%= page_list[i].page %><%}%>" ><%= page_list[i].page %></a></li>
+                            <% } %>
+
+                        <% } %>
+
+
+                        <% if(page < pages){ %>
+                            <li>
+                                <a href="/search?q=<%- encoded_query %>&page=<%= page + 1 %>">→</a>
+                            </li>
+                        <% } %>
+
+                        <% if(page >= pages){ %>
+                            <li class="disabled">
+                                <a href="/search?q=<%- encoded_query %>&page=<%= pages %>">→</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<% } %>

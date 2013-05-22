@@ -1,0 +1,4 @@
+check process getarticle with pidfile /var/run/getarticle.pid
+   start program = "/etc/init.d/getarticle start"
+   stop program = "/etc/init.d/getarticle stop"
+   if 5 restarts within 5 cycles then timeout

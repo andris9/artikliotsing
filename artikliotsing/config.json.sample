@@ -1,0 +1,5 @@
+{
+  "port": HTTP_PORT,
+  "elasticsearch": "http://localhost:9200/articles/_search",
+  "page_size": 10
+}

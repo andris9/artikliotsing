@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>artikliotsing.node.ee<% if(query){%> → <%= query %><%}%></title>
+        <!--<link rel="stylesheet" type="text/css" href="/bootwatch.css" />-->
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/search.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <a class="brand" href="/">artikliotsing.node.ee</a>
+                    <ul class="nav">
+                        <li 
+                            <% if (body == "main") { %>
+                                class="active"
+                            <% } %>
+                        ><a href="/">Esileht</a></li>
+                        <li 
+                            <% if (body == "about") { %>
+                                class="active"
+                            <% } %>
+                        ><a href="/about">Projektist</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <header class="jumbotron subhead">
+                <div class="row">
+                    <div class="span6">
+                        <h1>artikliotsing.node.ee</h1>
+                        <p class="lead">
+                            Otsi Eesti internetiväljaannete artiklite hulgast
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <section id="form">
+                <div class="row">
+                    <div class="span12">
+                        <form class="well form-search" method="post" action="/search">
+                            <input class="input-xlarge search-query" type="text" name="q" placeholder="Sisesta otsingusõnad" value="<%= query %>" />
+                            <button class="btn" type="submit">Otsi artikleid</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <% if (body == "main") { %>
+                <% include abi %>
+            <% } %>
+
+            <% if (body == "search") { %>
+                <% include search %>
+            <% } %>
+
+            <% if (body == "about") { %>
+                <% include about %>
+            <% } %>
+
+            <hr>
+
+            <footer>
+                <div class="links">
+                    &copy; 2013 Andris Reinman <a href="mailto:andris@node.ee">andris@node.ee</a>
+                </div>
+            </footer>
+            <p>&nbsp;</p>
+        </div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-51322-39']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    </body>
+</html>

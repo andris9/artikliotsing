@@ -1,0 +1,27 @@
+.result{
+    padding:0;
+    margin: 2px 0 15px 0;
+}
+.result-link{
+    font-size: 16px;
+    line-height: 19.2px;
+}
+.result-link a{
+    color: rgb(17, 34, 204);
+}
+
+.result-content{
+    color: rgb(34, 34, 34);
+    line-height: 16.1167px;
+    font-size: 13px;
+}
+
+.result-date{
+    color: rgb(102, 102, 102);
+}
+
+.result-url{
+    color: rgb(0, 153, 51);
+    line-height: 15.6px;
+    font-size: 13px;
+}

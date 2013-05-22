@@ -1,0 +1,17 @@
+<section id="about">
+    <div class="row">
+        <div class="span10">
+            <h3>Projektist</h3>
+            <p>Kuna võrguväljaannete artikleid ei olnud võimalik mõistlikult otsida, saigi algatatud seesama projekt. Artiklite kogumine algas jaanuaris 2013 ning vanemaid artikleid kahjuks selle teenuse kaudu leida ei saa.</p>
+            <p>artikliotsing.node.ee otsib vaid eestikeelsete väljaannete hulgast.</p>
+            <h4>Hetkel jälgitavad väljaanded</h4>
+            <ul style="columns:100px 4; -webkit-columns:100px 4; -moz-columns:100px 4;">
+                <% sources.forEach(function(source){ %>
+                    <li><a href="<%= source.url %>"><%= source.title %></a> <a href="/search?q=site:<%= source.id %>">→</a></li>
+                <% }) %>
+            </ul>
+            <h4>Tarkvarast</h4>
+            <p>artikliotsingu rakenduse kood on kirjutatud <a href="http://www.nodejs.org/">Node.JS</a> platvormil. Andmete puhverdamiseks ning järjekordade haldamiseks on kasutusel <a href="http://redis.io/">Redis</a>, artiklite salvestamiseks ja otsingu tegemiseks on kasutusel Lucene põhine <a href="http://www.elasticsearch.org/">ElasticSearch</a>. Artiklite sisu leiab üles <a href="http://diffbot.com/">Diffbot</a>.</p>
+        </div>
+    </div>
+</section>

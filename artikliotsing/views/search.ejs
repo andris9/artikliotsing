@@ -1,0 +1,28 @@
+<section>
+    <div class="row">
+        <div class="span8">
+
+            <p>
+            Leiti 
+                <strong><%= results && results.hits && results.hits.total || 0 %></strong>
+            tulemust<% 
+                if(results && results.hits && results.hits.hits.length){
+            %>, kuvan tulemused <strong><%= from + 1 %></strong> - <strong><%= from + (results.hits.hits.length || 0) %></strong>.
+            <%}%><% 
+                if(!results || !results.hits || !results.hits.hits.length){%>.<%}%> 
+            Selle otsingu <a href="/search.rss?q=<%= encoded_query %>">RSS</a> ja <a href="/search.json?q=<%= encoded_query %>">JSON</a>.
+            </p>
+
+            <% visible_results.forEach(function(result){%>
+                <div class="result">
+                    <div class="result-link"><a href="<%= result.url %>"><%- result.title %></a></div>
+                    <div class="result-url"><%= result.url.replace(/^https?:\/\//i, "") %></div>
+                    <div class="result-content"><span class="result-date"><%= result.humanized_date %></span> - <%- fulltext?result.html:result.content %></div>
+                </div>
+            <%})%>
+
+        </div>
+    </div>
+
+    <% include pagination %>
+</section>

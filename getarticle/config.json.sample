@@ -1,0 +1,12 @@
+{
+    "workers": 1,
+    "redis": {
+        "host": "localhost",
+        "port": false,
+        "db": 10
+    },
+
+    "apiUrl": "http://www.diffbot.com/api/article?token=DIFFBOT_TOKEN&url=FETCH_URL",
+
+    "elasticsearch": "http://localhost:9200/articles/article/ARTICLE_ID"
+}

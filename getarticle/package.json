@@ -1,0 +1,17 @@
+{
+  "name": "getarticle",
+  "version": "0.1.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Andris Reinman",
+  "license": "MIT",
+  "dependencies":{
+    "fetch": "*",
+    "redis": "*",
+    "hiredis": "*"
+  }
+}
