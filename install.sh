@@ -105,7 +105,10 @@ cd $DIR
 
 # artiklite otsimine
 
-echo "Installing RSS fetcher"
+echo ""
+echo -en "\033[1mInstalling RSS fetcher\033[0m"
+echo ""
+tput sgr0
 
 cd findarticle
 
@@ -118,7 +121,10 @@ cd "$DIR"
 
 # artikli töötlemine
 
-echo "Installing Article parser"
+echo ""
+echo -en "\033[1mInstalling Article parser\033[0m"
+echo ""
+tput sgr0
 
 cd getarticle
 sed "s/DIFFBOT_TOKEN/${DIFFBOT_TOKEN}/g" config.json.sample > config.json
@@ -132,7 +138,10 @@ cd "$DIR"
 
 # veebiliides
 
-echo "Installing Web service"
+echo ""
+echo -en "\033[1mInstalling Web service\033[0m"
+echo ""
+tput sgr0
 
 cd artikliotsing
 sed "s/HTTP_PORT/${HTTP_PORT}/g" config.json.sample > config.json
@@ -144,7 +153,10 @@ update-rc.d artikliotsing defaults
 
 cd "$DIR"
 
-echo "All services installed. Starting services ..."
+echo ""
+echo -en "\033[1mAll services installed. Starting services ...\033[0m"
+echo ""
+tput sgr0
 
 /etc/init.d/findarticle start
 /etc/init.d/getarticle start
@@ -156,4 +168,7 @@ echo "    /var/log/findarticle.log"
 echo "    /var/log/getarticle.log"
 echo "    /var/log/artikliotsing.log"
 echo ""
-echo "INSTALL COMPLETED!"
+echo ""
+echo -en "\033[1mINSTALL COMPLETED\033[0m"
+echo ""
+tput sgr0
