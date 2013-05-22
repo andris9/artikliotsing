@@ -46,4 +46,4 @@ Kui vigu ei esinenud (install lõppeb teatega INSTALL COMPLETED), ongi rakendus 
 
 Kui rakendus ei tööta, siis kontrolli logifaile, mille täpsed asukohad väljastatakse ekraanile installiskripti lõpus.
 
-Kui veebileht avaneb, siis indekseerimise töötamist saad kontrollida otsinguga `"*"` (ilma jutumärkideta) - see otsing väljastab kõik aindekseeritud artiklid. Koheselt peale käivitamist peaks rakendus olema jõudnud juba paar artiklit ära indekseerida.
+Kui veebileht avaneb, siis indekseerimise töötamist saad kontrollida otsinguga `"*"` (ilma jutumärkideta) - see otsing väljastab kõik indekseeritud artiklid. Koheselt peale käivitamist peaks rakendus olema jõudnud juba paar artiklit ära indekseerida.
