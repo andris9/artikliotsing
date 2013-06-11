@@ -205,7 +205,7 @@ function resolve(sourceUrl, callback){
             if(replies && replies[1]){
                 return callback(null, replies[1]);
             }
-            resolver.resolve(sourceUrl, {removeParams: [/^utm_/, "ref", "rsscount"]},  function(err, url, filename, contentType){
+            resolver.resolve(sourceUrl, {removeParams: [/^utm_/, "ref", "rsscount"], userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0'},  function(err, url, filename, contentType){
                 if(err){
                     return callback(err);
                 }
