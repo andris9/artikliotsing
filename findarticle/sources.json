@@ -428,7 +428,7 @@
     "id": "ap3.ee",
     "title": "Äripäev",
     "url": "http://www.ap3.ee",
-    "feed": "http://aripaev.ee.feedsportal.com/c/33176/f/545915/index.rss",
+    "feed": "http://www.ap3.ee/RSS.aspx",
     "language": "et",
     "domains": ["ap3.ee"]
 }, {
