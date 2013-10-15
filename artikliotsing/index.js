@@ -66,7 +66,7 @@ function serveRSS(req, res){
         }
         res.set('Content-Type', "application/rss+xml; Charset=utf-8");
         res.render("rss", {
-            title: "artikliotsing.node.ee",
+            title: "monitor.kreata.ee",
             query: req.query.q,
             encoded_query: encodeURIComponent(req.query.q),
             domain: req.headers.host || "localhost",
