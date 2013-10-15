@@ -122,5 +122,11 @@ app.post('/search', function(req, res){
 });
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+    console.log("Express server listening on port " + app.get('port'));
+    try{
+        process.setgid("nogroup");
+        process.setuid("nobody");
+    }catch(E){
+        console.log("Failed giving up root privileges");
+    }
 });
