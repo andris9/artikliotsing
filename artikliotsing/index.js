@@ -49,7 +49,7 @@ app.get('/search.json', function(req, res){
             throw err;
         }
         res.set('Content-Type', "application/json; Charset=utf-8");
-        res.send(JSON.stringify({total: results.hits.total, results: searchlib.formatResults(results)}));
+        res.send(JSON.stringify({total: results.hits.total, results: searchlib.formatResults(results)}, false, 4));
     });
 });
 
