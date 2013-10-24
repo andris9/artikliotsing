@@ -383,6 +383,13 @@
     "language": "et",
     "domains": ["tartupostimees.ee"]
 }, {
+    "id": "telegram.ee",
+    "title": "Telegram",
+    "url": "http://www.telegram.ee",
+    "feed": "http://www.telegram.ee/feed",
+    "language": "et",
+    "domains": ["telegram.ee"]
+}, {
     "id": "toostusuudised.ee",
     "title": "Tööstusuudised",
     "url": "http://www.toostusuudised.ee",
