@@ -351,7 +351,7 @@
     "id": "sirp.ee",
     "title": "Sirp",
     "url": "http://www.sirp.ee",
-    "feed": "http://otsing.tahvel.info/feeds/sirp.php",
+    "feed": "http://www.sirp.ee/feed/",
     "language": "et",
     "domains": ["sirp.ee"]
 }, {
