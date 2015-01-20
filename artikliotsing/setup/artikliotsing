@@ -9,7 +9,7 @@
 # Description:       artikliotsing
 ### END INIT INFO
 
-NODE=node
+NODE=/usr/bin/node
 NAME=artikliotsing
 
 SOURCE="${BASH_SOURCE[0]}"

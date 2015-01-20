@@ -9,7 +9,7 @@
 # Description:       getarticle
 ### END INIT INFO
 
-NODE=node
+NODE=/usr/bin/node
 NAME=getarticle
 
 SOURCE="${BASH_SOURCE[0]}"
