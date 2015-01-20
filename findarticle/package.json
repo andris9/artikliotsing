@@ -13,7 +13,7 @@
     "fetch": "^0.3.6",
     "hiredis": "^0.1.17",
     "moment": "^2.9.0",
-    "nodepie": "^0.6.5",
+    "nodepie": "^0.6.6",
     "redis": "^0.12.1",
     "resolver": "^0.1.12"
   }
