@@ -68,7 +68,7 @@ function serveRSS(req, res) {
         }
         res.set('Content-Type', 'application/rss+xml; Charset=utf-8');
         res.render('rss', {
-            title: 'kreata.ee:8000',
+            title: 'artiklid.tahvel.info',
             query: req.query.q,
             encoded_query: encodeURIComponent(req.query.q),
             domain: req.headers.host ||  'localhost',
