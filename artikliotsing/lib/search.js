@@ -1,3 +1,5 @@
+'use strict';
+
 var config = require("../config"),
     fetch = require("fetch"),
     moment = require("moment");
@@ -108,7 +110,7 @@ function search(query, from, size, callback){
         };
 
     fetch.fetchUrl(config.elasticsearch, {
-      method:"GET", 
+      method:"GET",
       payload: JSON.stringify(searchObj)
     }, function(err, meta, body){
         var docs;

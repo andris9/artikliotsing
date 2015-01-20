@@ -9,9 +9,9 @@
   "repository": "",
   "author": "Andris Reinman",
   "license": "MIT",
-  "dependencies":{
-    "fetch": "*",
-    "redis": "*",
-    "hiredis": "*"
+  "dependencies": {
+    "fetch": "^0.3.6",
+    "hiredis": "^0.1.17",
+    "redis": "^0.12.1"
   }
 }

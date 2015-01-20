@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ES_VERSION=0.20.5
+REDIS_VERSION=2.8.19
 
 set -e
 
@@ -31,16 +32,8 @@ else
     echo ""
     tput sgr0
 
-    add-apt-repository -y ppa:chris-lea/node.js
-    apt-get update -y
+    curl -sL https://deb.nodesource.com/setup | bash -
     apt-get install -y nodejs
-
-    ln -s /usr/bin/node /usr/local/bin/node
-    ln -s /usr/bin/nodejs-waf /usr/local/bin/nodejs-waf
-    ln -s /usr/bin/node-waf /usr/local/bin/node-waf
-    ln -s /usr/bin/npm /usr/local/bin/npm
-    ln -s /usr/bin/npm_g /usr/local/bin/npm_g
-    ln -s /usr/bin/npm-g /usr/local/bin/npm-g
 fi
 
 # Install Redis
@@ -52,9 +45,9 @@ else
     echo -en "\033[1mInstalling Redis\033[0m"
     echo ""
     tput sgr0
-    wget http://redis.googlecode.com/files/redis-2.6.13.tar.gz
-    tar -xzvf redis-2.6.13.tar.gz
-    cd redis-2.6.13
+    wget http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz
+    tar -xzvf redis-${REDIS_VERSION}.tar.gz
+    cd redis-${REDIS_VERSION}
     make
     make install
 
@@ -74,7 +67,7 @@ else
 
     /etc/init.d/redis start
     cd ~
-    rm -rf redis-2.6.13*
+    rm -rf redis-${REDIS_VERSION}*
 fi
 
 # Install Elasticsearch
@@ -111,6 +104,8 @@ echo ""
 tput sgr0
 
 cd findarticle
+
+cp config.json.sample config.json
 
 npm install
 

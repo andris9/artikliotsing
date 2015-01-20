@@ -1,11 +1,13 @@
-var config = require("./config.json"),
-    cluster = require('cluster');
+'use strict';
 
-try{
-    process.setgid("nogroup");
-    process.setuid("nobody");
-}catch(E){
-    console.log("Failed giving up root privileges");
+var config = require('./config.json');
+var cluster = require('cluster');
+
+try {
+    process.setgid('nogroup');
+    process.setuid('nobody');
+} catch (E) {
+    console.log('Failed giving up root privileges');
 }
 
 if (cluster.isMaster) {
@@ -13,11 +15,11 @@ if (cluster.isMaster) {
         cluster.fork();
     }
 
-    cluster.on('exit', function(worker, code, signal) {
+    cluster.on('exit', function(worker) {
         console.log('worker ' + worker.process.pid + ' died');
         cluster.fork();
     });
 } else {
-    console.log("Starting worker "+process.pid);
-    require("./fetcher");
+    console.log('Starting worker ' + process.pid);
+    require('./fetcher');
 }

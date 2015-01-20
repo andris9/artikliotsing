@@ -9,15 +9,13 @@
 # Description:       getarticle
 ### END INIT INFO
 
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-NODE_PATH=/usr/local/lib/node_modules
-NODE=/usr/local/bin/node
+NODE=node
 NAME=getarticle
 
 SOURCE="${BASH_SOURCE[0]}"
 DIR="$( dirname "$SOURCE" )"
 while [ -h "$SOURCE" ]
-do 
+do
   SOURCE="$(readlink "$SOURCE")"
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
   DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd )"

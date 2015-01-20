@@ -3,7 +3,7 @@
 
     "redis": {
         "host": "localhost",
-        "port": false,
+        "port": 6379,
         "db": 10
     }
 }

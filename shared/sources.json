@@ -1,10 +1,10 @@
 [{
     "id": "alkeemia.ee",
     "title": "Alkeemia",
-    "url": "http://www.alkeemia.ee",
-    "feed": "http://otsing.tahvel.info/feeds/alkeemia.php",
+    "url": "http://alkeemia.delfi.ee/",
+    "feed": "http://alkeemia.delfi.ee/rss.xml",
     "language": "et",
-    "domains": ["alkeemia.ee"]
+    "domains": ["alkeemia.ee", "alkeemia.delfi.ee"]
 }, {
     "id": "arvamus.postimees.ee",
     "title": "Arvamus",
@@ -34,47 +34,40 @@
     "language": "et",
     "domains": ["delfi.ee"]
 }, {
-    "id": "majandus.delfi.ee",
-    "title": "Delfi Majandus",
-    "url": "http://majandus.delfi.ee",
+    "id": "arileht.delfi.ee",
+    "title": "Ärileht",
+    "url": "http://arileht.delfi.ee",
     "feed": "http://feeds2.feedburner.com/delfimajandus",
     "language": "et",
-    "domains": ["majandus.delfi.ee"]
+    "domains": ["majandus.delfi.ee", "arileht.delfi.ee"]
 }, {
     "id": "diplomaatia.ee",
     "title": "Diplomaatia",
     "url": "http://www.diplomaatia.ee",
-    "feed": "http://www.diplomaatia.ee/index.php?type=100",
+    "feed": "http://www.diplomaatia.ee/rss/",
     "language": "et",
     "domains": ["diplomaatia.ee"]
 }, {
     "id": "e24.ee",
     "title": "E24",
-    "url": "http://www.e24.ee",
-    "feed": "http://www.e24.ee/rss/",
+    "url": "http://majandus24.postimees.ee/",
+    "feed": "http://e24.postimees.ee/rss/",
     "language": "et",
-    "domains": ["e24.ee", "juhtimine.ee"]
-}, {
-    "id": "uudisvoog.postimees.ee",
-    "title": "E24 - firmateated",
-    "url": "http://uudisvoog.postimees.ee",
-    "feed": "http://otsing.tahvel.info/feeds/postimehe_uudisvoog.php",
-    "language": "et",
-    "domains": ["uudisvoog.postimees.ee"]
+    "domains": ["e24.ee", "e24.postimees.ee", "juhtimine.ee", "majandus24.postimees.ee"]
 }, {
     "id": "ekspress.ee",
     "title": "Eesti Ekspress",
-    "url": "http://www.ekspress.ee",
+    "url": "http://ekspress.delfi.ee/",
     "feed": "http://feeds.feedburner.com/EestiEkspressFeed",
     "language": "et",
-    "domains": ["ekspress.ee"]
+    "domains": ["ekspress.ee", "ekspress.delfi.ee"]
 }, {
     "id": "epl.ee",
     "title": "Eesti Päevaleht",
-    "url": "http://www.epl.ee",
+    "url": "http://epl.delfi.ee/",
     "feed": "http://feeds.feedburner.com/eestipaevaleht",
     "language": "et",
-    "domains": ["epl.ee"]
+    "domains": ["epl.ee", "epl.delfi.ee"]
 }, {
     "id": "ehitusuudised.ee",
     "title": "Ehitusuudised",
@@ -85,16 +78,37 @@
 }, {
     "id": "elu24.ee",
     "title": "Elu24",
-    "url": "http://www.elu24.ee",
-    "feed": "http://www.elu24.ee/rss/",
-    "domains": ["elu24.ee"]
+    "url": "http://elu24.postimees.ee/",
+    "feed": "http://elu24.postimees.ee/rss/",
+    "domains": ["elu24.ee", "elu24.postimees.ee"]
 }, {
     "id": "err.ee",
     "title": "ERR",
-    "url": "http://www.err.ee",
-    "feed": "http://uudised.err.ee/uudised_rss.php",
+    "url": "http://uudised.err.ee/",
+    "feed": "http://uudised.err.ee/rss",
     "language": "et",
-    "domains": ["err.ee"]
+    "domains": ["err.ee", "uudised.err.ee"]
+}, {
+    "id": "kultuur.err.ee",
+    "title": "ERR Kultuur",
+    "url": "http://kultuur.err.ee",
+    "feed": "http://kultuur.err.ee/rss",
+    "language": "et",
+    "domains": ["kultuur.err.ee"]
+}, {
+    "id": "menu.err.ee",
+    "title": "ERR Menu",
+    "url": "http://menu.err.ee",
+    "feed": "http://menu.err.ee/rss",
+    "language": "et",
+    "domains": ["menu.err.ee"]
+}, {
+    "id": "novaator.err.ee",
+    "title": "ERR Novaator",
+    "url": "http://novaator.err.ee",
+    "feed": "http://novaator.err.ee/rss",
+    "language": "et",
+    "domains": ["teadus.err.ee", "novaator.err.ee"]
 }, {
     "id": "sport.err.ee",
     "title": "ERR Sport",
@@ -103,26 +117,19 @@
     "language": "et",
     "domains": ["sport.err.ee"]
 }, {
-    "id": "teadus.err.ee",
-    "title": "ERR Teadus & Haridus",
-    "url": "http://teadus.err.ee",
-    "feed": "http://teadus.err.ee/rss",
-    "language": "et",
-    "domains": ["teadus.err.ee"]
-}, {
     "id": "forte.ee",
     "title": "Forte",
-    "url": "http://www.forte.ee",
+    "url": "http://forte.delfi.ee/",
     "feed": "http://feeds2.feedburner.com/forteuudised",
     "language": "et",
     "domains": ["forte.ee", "forte.delfi.ee"]
 }, {
     "id": "ilmajaam.ee",
     "title": "Ilmajaam",
-    "url": "http://www.ilmajaam.ee",
-    "feed": "http://www.ilmajaam.ee/rss/",
+    "url": "http://ilmajaam.postimees.ee/",
+    "feed": "http://ilmajaam.postimees.ee/rss/",
     "language": "et",
-    "domains": ["ilmajaam.ee"]
+    "domains": ["ilmajaam.ee", "ilmajaam.postimees.ee"]
 }, {
     "id": "ituudised.ee",
     "title": "IT Uudised",
@@ -155,7 +162,7 @@
     "id": "kesknadal.ee",
     "title": "Kesknädal",
     "url": "http://www.kesknadal.ee",
-    "feed": "http://otsing.tahvel.info/feeds/kesknadal.php",
+    "feed": "http://kesknadal.ee/est/uudiskiri",
     "language": "et",
     "domains": ["kesknadal.ee"]
 }, {
@@ -166,17 +173,10 @@
     "language": "et",
     "domains": ["kirikiri.ee"]
 }, {
-    "id": "kortsleht.ee",
-    "title": "Kortsleht",
-    "url": "http://www.kortsleht.ee",
-    "feed": "http://feeds.feedburner.com/kortsleht",
-    "language": "et",
-    "domains": ["kortsleht.ee"]
-}, {
     "id": "kuulutaja.ee",
     "title": "Kuulutaja",
     "url": "http://www.kuulutaja.ee",
-    "feed": "http://otsing.tahvel.info/feeds/kuulutaja.php",
+    "feed": "http://www.kuulutaja.ee/feed/",
     "language": "et",
     "domains": ["kuulutaja.ee"]
 }, {
@@ -196,17 +196,17 @@
 }, {
     "id": "le.ee",
     "title": "Lääne Elu",
-    "url": "http://www.le.ee",
+    "url": "http://online.le.ee/",
     "feed": "http://online.le.ee/feed/",
     "language": "et",
-    "domains": ["le.ee"]
+    "domains": ["le.ee", "online.le.ee"]
 }, {
     "id": "maaleht.ee",
     "title": "Maaleht",
-    "url": "http://www.maaleht.ee",
+    "url": "http://maaleht.delfi.ee/",
     "feed": "http://feeds2.feedburner.com/maaleht",
     "language": "et",
-    "domains": ["maaleht.ee"]
+    "domains": ["maaleht.ee", "maaleht.delfi.ee"]
 }, {
     "id": "memokraat.ee",
     "title": "Memokraat",
@@ -217,31 +217,17 @@
 }, {
     "id": "naine24.ee",
     "title": "Naine24",
-    "url": "http://www.naine24.ee",
-    "feed": "http://www.naine24.ee/rss/",
+    "url": "http://naine24.postimees.ee/",
+    "feed": "http://naine24.postimees.ee/rss/",
     "language": "et",
-    "domains": ["naine24.ee"]
+    "domains": ["naine24.ee", "naine24.postimees.ee"]
 }, {
     "id": "naistekas.ee",
     "title": "Naistekas",
-    "url": "http://www.naistekas.ee",
+    "url": "http://naistekas.delfi.ee/",
     "feed": "http://feeds.feedburner.com/naistekas",
     "language": "et",
     "domains": ["naistekas.ee", "naistekas.delfi.ee"]
-}, {
-    "id": "neljas.ee",
-    "title": "Neljas",
-    "url": "http://www.neljas.ee",
-    "feed": "http://www.neljas.ee/rss/",
-    "language": "et",
-    "domains": ["neljas.ee"]
-}, {
-    "id": "novaator.ee",
-    "title": "Novaator",
-    "url": "http://www.novaator.ee",
-    "feed": "http://novaator.ee/rss.php",
-    "language": "et",
-    "domains": ["novaator.ee"]
 }, {
     "id": "nommesonumid.blogspot.com",
     "title": "Nõmme Sõnumid",
@@ -253,12 +239,12 @@
     "id": "pealinn.ee",
     "title": "Pealinn",
     "url": "http://www.pealinn.ee",
-    "feed": "http://www.pealinn.ee/rss/",
+    "feed": "http://www.pealinn.ee/rss.php?type=news",
     "language": "et",
     "domains": ["pealinn.ee"]
 }, {
     "id": "postimees.ee",
-    "title": "Postimees Online",
+    "title": "Postimees",
     "url": "http://www.postimees.ee",
     "feed": "http://www.postimees.ee/rss/",
     "language": "et",
@@ -266,7 +252,7 @@
 }, {
     "id": "publik.ee",
     "title": "Publik",
-    "url": "http://www.publik.ee",
+    "url": "http://publik.delfi.ee/",
     "feed": "http://feeds2.feedburner.com/publikuudised",
     "language": "et",
     "domains": ["publik.ee", "publik.delfi.ee"]
@@ -280,10 +266,10 @@
 }, {
     "id": "pohjarannik.ee",
     "title": "Põhjarannik",
-    "url": "http://www.pohjarannik.ee",
+    "url": "http://pr.pohjarannik.ee/",
     "feed": "http://pr.pohjarannik.ee/?feed=rss2",
     "language": "et",
-    "domains": ["pohjarannik.ee"]
+    "domains": ["pohjarannik.ee", "pr.pohjarannik.ee"]
 }, {
     "id": "pollumajandus.ee",
     "title": "Põllumajandus",
@@ -308,7 +294,7 @@
 }, {
     "id": "riigikaitse.ee",
     "title": "Riigikaitse.EE",
-    "url": "http://www.riigikaitse.ee",
+    "url": "http://riigikaitse.lehed.ee/",
     "feed": "http://feeds.feedburner.com/Riigikaitse",
     "language": "et",
     "domains": ["riigikaitse.ee", "riigikaitse.lehed.ee"]
@@ -356,32 +342,25 @@
     "domains": ["sirp.ee"]
 }, {
     "id": "tallinnapostimees.ee",
-    "title": "Tallinna Postimees",
-    "url": "http://www.tallinnapostimees.ee",
-    "feed": "http://www.tallinnapostimees.ee/rss/",
+    "title": "Tallinna City",
+    "url": "http://tallinncity.postimees.ee/",
+    "feed": "http://tallinncity.postimees.ee/rss/",
     "language": "et",
-    "domains": ["tallinnapostimees.ee"]
+    "domains": ["tallinnapostimees.ee", "tallinncity.postimees.ee"]
 }, {
     "id": "tarbija24.ee",
     "title": "Tarbija24",
-    "url": "http://www.tarbija24.ee",
-    "feed": "http://www.tarbija24.ee/rss/",
+    "url": "http://tarbija24.postimees.ee/",
+    "feed": "http://tarbija24.postimees.ee/rss/",
     "language": "et",
-    "domains": ["tarbija24.ee"]
-}, {
-    "id": "tartuekspress.eu",
-    "title": "Tartu Ekspress",
-    "url": "http://www.tartuekspress.eu",
-    "feed": "http://otsing.tahvel.info/feeds/tartuekspress.php",
-    "language": "et",
-    "domains": ["tartuekspress.eu"]
+    "domains": ["tarbija24.ee", "tarbija24.postimees.ee"]
 }, {
     "id": "tartupostimees.ee",
     "title": "Tartu Postimees",
-    "url": "http://www.tartupostimees.ee",
-    "feed": "http://www.tartupostimees.ee/rss/",
+    "url": "http://tartu.postimees.ee/",
+    "feed": "http://tartu.postimees.ee/rss/",
     "language": "et",
-    "domains": ["tartupostimees.ee"]
+    "domains": ["tartupostimees.ee", "tartu.postimees.ee"]
 }, {
     "id": "telegram.ee",
     "title": "Telegram",
@@ -407,7 +386,7 @@
     "id": "valitsus.ee",
     "title": "Valitsuse pressiteated",
     "url": "http://www.valitsus.ee",
-    "feed": "http://www.valitsus.ee/valitsuse-pressiteated-rss",
+    "feed": "https://valitsus.ee/et/news/1+3/feed",
     "language": "et",
     "domains": ["valitsus.ee"]
 }, {
@@ -418,26 +397,19 @@
     "language": "et",
     "domains": ["virumaateataja.ee"]
 }, {
-    "id": "vooremaa.ee",
-    "title": "Vooremaa",
-    "url": "http://www.vooremaa.ee",
-    "feed": "http://otsing.tahvel.info/feeds/vooremaa.php",
-    "language": "et",
-    "domains": ["vooremaa.ee"]
-}, {
     "id": "vorumaateataja.ee",
     "title": "Võrumaa Teataja",
     "url": "http://www.vorumaateataja.ee",
-    "feed": "http://www.vorumaateataja.ee/index.php?format=feed&type=rss",
+    "feed": "http://www.vorumaateataja.ee/ee/?format=feed&type=rss",
     "language": "et",
     "domains": ["vorumaateataja.ee"]
 }, {
-    "id": "ap3.ee",
+    "id": "aripaev.ee",
     "title": "Äripäev",
-    "url": "http://www.ap3.ee",
-    "feed": "http://www.ap3.ee/RSS.aspx",
+    "url": "http://www.aripaev.ee/",
+    "feed": "http://www.aripaev.ee/RSS.aspx",
     "language": "et",
-    "domains": ["ap3.ee"]
+    "domains": ["ap3.ee", "aripaev.ee"]
 }, {
     "id": "ohtuleht.ee",
     "title": "Õhtuleht",
