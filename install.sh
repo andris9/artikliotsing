@@ -51,21 +51,20 @@ else
     make
     make install
 
-    mkdir /var/lib/redis || echo "Redis data directory already exists"
-    curl http://tahvel.info/redis.conf -o /etc/redis.conf
-
-    curl http://tahvel.info/redis -o /etc/init.d/redis
-    chmod +x /etc/init.d/redis
+    mkdir -p /var/lib/redis/6379
+    mkdir -p /etc/redis
+    cp $DIR/shared/6379.conf /etc/redis
+    cp $DIR/shared/redis_6379 /etc/init.d
 
     if [ `which chkconfig` ] ; then
         # we're chkconfig, so lets add to chkconfig and put in runlevel 345
-        chkconfig --add redis && echo "Successfully added to chkconfig!"
-        chkconfig --level 345 redis on && echo "Successfully added to runlevels 345!"
+        chkconfig --add redis_6379 && echo "Successfully added to chkconfig!"
+        chkconfig --level 345 redis_6379 on && echo "Successfully added to runlevels 345!"
     else
-        update-rc.d redis defaults && echo "Success!"
+        update-rc.d redis_6379 defaults && echo "Success!"
     fi
 
-    /etc/init.d/redis start
+    /etc/init.d/redis_6379 start
     cd ~
     rm -rf redis-${REDIS_VERSION}*
 fi
