@@ -215,6 +215,13 @@
     "language": "et",
     "domains": ["memokraat.ee"]
 }, {
+    "id": "muurileht.ee",
+    "title": "Müürileht",
+    "url": "http://www.muurileht.ee",
+    "feed": "http://www.muurileht.ee/feed/",
+    "language": "et",
+    "domains": ["muurileht.ee"]
+}, {
     "id": "naine24.ee",
     "title": "Naine24",
     "url": "http://naine24.postimees.ee/",
