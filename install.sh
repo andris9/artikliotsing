@@ -36,7 +36,7 @@ else
     echo -en "\033[1mInstallin ElasticSearch serveri\033[0m"
     wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
     add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
-    REPOS="$REPOS elasticsearch"
+    REPOS="$REPOS openjdk-7-jre-headless elasticsearch"
     USE_ES="true"
 fi
 
@@ -60,15 +60,19 @@ else
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
     add-apt-repository "deb http://public.kreata.ee/ trusty main"
 fi
-REPOS="$REPOS artikliotsing"
 
 apt-get update
-apt-get install -y $REPOS
 
-if [ -n "$USE_ES" ]; then
-    sudo update-rc.d elasticsearch defaults 95 10
-    /etc/init.d/elasticsearch start
+if [ -n "$REPOS" ]; then
+    apt-get install -y $REPOS
+
+    if [ -n "$USE_ES" ]; then
+        sudo update-rc.d elasticsearch defaults 95 10
+        /etc/init.d/elasticsearch start
+    fi
 fi
+
+apt-get install -y artikliotsing
 
 echo "{\"diffbotToken\": \"${DIFFBOT_TOKEN}\", \"port\": ${HTTP_PORT}}" > /etc/artikliotsing.d/production.json
 
