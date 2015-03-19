@@ -10,5 +10,6 @@
         "port": 6379,
         "db": 10
     },
-    "diffbotToken": ""
+    "diffbotToken": "",
+    "debug": true
 }
