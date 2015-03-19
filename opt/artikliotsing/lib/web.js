@@ -140,7 +140,11 @@ function serveRSS(req, res) {
                 description: result.content,
                 content: result.html,
                 link: result.url,
-                creator: result.author
+                creator: result.author,
+                guid: {
+                    value: result.id
+                    isPermaLink: false
+                }
             });
         });
 

@@ -17,6 +17,7 @@ function formatResults(results) {
     }
     return results.hits.hits.map(function(doc) {
         var element = {
+            id: doc._id,
             url: doc._source.url,
             site: doc._source.site,
             humanized_date: moment(doc._source.date, false, 'et').fromNow(),
