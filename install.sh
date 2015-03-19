@@ -1,8 +1,5 @@
 #!/bin/bash
 
-ES_VERSION=0.20.5
-REDIS_VERSION=2.8.19
-
 set -e
 
 if [ `whoami` != "root" ] ; then
@@ -15,154 +12,89 @@ fi
 read -e -p "Enter diffbot token: " DIFFBOT_TOKEN
 read -e -p "Enter web server port (typically 80): " HTTP_PORT
 
-DIR=`pwd`
+REPOS=""
+USE_ES=""
 
-# ensure needed packages
-apt-get update -y
-apt-get install -y build-essential libssl-dev git-core python curl sudo openjdk-7-jre-headless software-properties-common python-software-properties
-apt-get -fy install
+# Lisa Redis repo
 
-# Install Node.js
-if [ `which node` ] ; then
-    echo -en "\033[1mNode.js already installed, skipping\033[0m"
+if [ `which redis-server` ] ; then
+    echo -en "\033[1mReids on juba installitud, jätan vahele\033[0m"
     echo ""
     tput sgr0
 else
-    echo -en "\033[1mInstalling Node.js\033[0m"
+    echo -en "\033[1mInstallin Redis serveri\033[0m"
     echo ""
     tput sgr0
-
-    curl -sL https://deb.nodesource.com/setup | bash -
-    apt-get install -y nodejs
+    apt-add-repository ppa:chris-lea/redis-server -y
+    REPOS="$REPOS redis-server"
 fi
 
-# Install Redis
-if [ `which redis-server` ] ; then
-    echo -en "\033[1mRedis already installed, skipping\033[0m"
+# Lisa ElasticSearch repo
+if [ `which elasticsearch` ] ; then
+    echo -en "\033[1mElasticSearch on juba installitud, jätan vahele\033[0m"
     echo ""
     tput sgr0
 else
-    echo -en "\033[1mInstalling Redis\033[0m"
+    echo -en "\033[1mInstallin ElasticSearch serveri\033[0m"
     echo ""
     tput sgr0
-    wget http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz
-    tar -xzvf redis-${REDIS_VERSION}.tar.gz
-    cd redis-${REDIS_VERSION}
-    make
-    make install
 
-    mkdir -p /var/lib/redis/6379
-    mkdir -p /etc/redis
-    cp $DIR/shared/6379.conf /etc/redis
-    cp $DIR/shared/redis_6379 /etc/init.d
-
-    if [ `which chkconfig` ] ; then
-        # we're chkconfig, so lets add to chkconfig and put in runlevel 345
-        chkconfig --add redis_6379 && echo "Successfully added to chkconfig!"
-        chkconfig --level 345 redis_6379 on && echo "Successfully added to runlevels 345!"
+    if [ `which java` ] ; then
+        echo "Java on juba installitud, jätan vahele"
     else
-        update-rc.d redis_6379 defaults && echo "Success!"
+        echo "Installin Java"
+        REPOS="$REPOS openjdk-7-jre-headless"
     fi
 
-    /etc/init.d/redis_6379 start
-    cd ~
-    rm -rf redis-${REDIS_VERSION}*
+    wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
+    add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+    REPOS="$REPOS elasticsearch"
+    USE_ES="true"
+
 fi
 
-# Install Elasticsearch
-if [ `which /etc/init.d/elasticsearch` ] ; then
-    echo -en "\033[1mElasticSearch already installed, skipping\033[0m"
+# Lisa Node.js repo
+if [ `which elasticsearch` ] ; then
+    echo -en "\033[1mNode.js on juba installitud, jätan vahele\033[0m"
     echo ""
     tput sgr0
 else
-    echo -en "\033[1mInstalling ElasticSearch\033[0m"
+    echo -en "\033[1mInstallin Node.js platvormi\033[0m"
     echo ""
     tput sgr0
-
-    # install elasticsearch
-    wget "http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.deb"
-    dpkg -i "elasticsearch-${ES_VERSION}.deb"
-    rm -rf "elasticsearch-${ES_VERSION}.deb"
-
-    sleep 5
-
-    # install plugins
-    /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-mapper-attachments/1.4.0
-    /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
-
-    /etc/init.d/elasticsearch restart
+    curl -sL https://deb.nodesource.com/setup | bash
+    REPOS="$REPOS nodejs"
 fi
 
-cd $DIR
+# Lisa Artikliotsingu repo
+if [ -d "/etc/artikliotsing.d" ]; then
+    echo ""
+    tput sgr0
+else
+    echo -en "\033[1mLisan artikliotsingu repo\033[0m"
+    echo ""
+    tput sgr0
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
+    add-apt-repository "deb http://public.kreata.ee/ trusty main"
+fi
 
-# artiklite otsimine
+apt-get update
 
-echo ""
-echo -en "\033[1mInstalling RSS fetcher\033[0m"
-echo ""
-tput sgr0
+if [ -n "$REPOS" ]; then
+    apt-get install -y $REPOS
 
-cd findarticle
+    if [ -n "$USE_ES" ]; then
+        sudo update-rc.d elasticsearch defaults 95 10
+        /etc/init.d/elasticsearch start
+    fi
+fi
 
-cp config.json.sample config.json
+apt-get install -y artikliotsing
 
-npm install
+echo "{\"diffbotToken\": \"${DIFFBOT_TOKEN}\", \"port\": ${HTTP_PORT}}" > /etc/artikliotsing.d/production.json
 
-ln -s "$DIR/findarticle/setup/findarticle" "/etc/init.d/findarticle"
-update-rc.d findarticle defaults
+initctl start artikliotsing
 
-cd "$DIR"
-
-# artikli töötlemine
-
-echo ""
-echo -en "\033[1mInstalling Article parser\033[0m"
-echo ""
-tput sgr0
-
-cd getarticle
-sed "s/DIFFBOT_TOKEN/${DIFFBOT_TOKEN}/g" config.json.sample > config.json
-
-npm install
-
-ln -s "$DIR/getarticle/setup/getarticle" "/etc/init.d/getarticle"
-update-rc.d getarticle defaults
-
-cd "$DIR"
-
-# veebiliides
-
-echo ""
-echo -en "\033[1mInstalling Web service\033[0m"
-echo ""
-tput sgr0
-
-cd artikliotsing
-sed "s/HTTP_PORT/${HTTP_PORT}/g" config.json.sample > config.json
-
-npm install
-
-ln -s "$DIR/artikliotsing/setup/artikliotsing" "/etc/init.d/artikliotsing"
-update-rc.d artikliotsing defaults
-
-cd "$DIR"
-
-echo ""
-echo -en "\033[1mAll services installed. Starting services ...\033[0m"
-echo ""
-tput sgr0
-
-/etc/init.d/findarticle start
-/etc/init.d/getarticle start
-/etc/init.d/artikliotsing start
-
-echo ""
-echo "Log files for the services:"
-echo "    /var/log/findarticle.log"
-echo "    /var/log/getarticle.log"
-echo "    /var/log/artikliotsing.log"
-echo ""
-echo ""
-echo -en "\033[1mINSTALL COMPLETED\033[0m"
+echo -en "\033[1mInstalleerimine õnnestus!\033[0m"
 echo ""
 tput sgr0

@@ -1,28 +1,71 @@
 'use strict';
 
-var config = require('./config.json');
+var config = require('config');
 var pathlib = require('path');
 var express = require('express');
 var http = require('http');
 var searchlib = require('./lib/search');
 var sources = require('../shared/sources.json');
 var app = express();
+var morgan = require('morgan');
+var compression = require('compression');
+var st = require('st');
+var log = require('npmlog');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 
-app.configure(function() {
-    app.use(express.compress());
+var mount = st({
+    path: pathlib.join(__dirname, 'public'),
+    url: '/',
+    dot: false,
+    index: false,
+    passthrough: true,
 
-    app.set('port', config.port);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-    app.use(express.favicon());
-    //app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(express.errorHandler());
+    cache: { // specify cache:false to turn off caching entirely
+        content: {
+            max: 1024 * 1024 * 64
+        }
+    },
 
-    app.use(express.static(pathlib.join(__dirname, 'public')));
+    gzip: false
 });
+
+app.set('port', config.port || 8080);
+app.disable('x-powered-by');
+app.set('views', pathlib.join(__dirname, 'views'));
+app.use(compression());
+app.use(function(req, res, next) {
+    mount(req, res, function() {
+        next();
+    });
+});
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
+
+app.use(methodOverride('X-HTTP-Method-Override'));
+
+// Log requests to console
+app.use(morgan(":req[x-forwarded-for] [:date[clf]] \":method :url HTTP/:http-version\" :status :res[content-length] - :response-time ms", {
+    stream: {
+        write: function(message) {
+            message = (message || '').toString();
+            if (message) {
+                log.info('HTTP', message.replace('\n', '').trim());
+            }
+        }
+    },
+    skip: function(req, res) {
+        // ignore ping requests
+        if (res && req.query && req.query.monitor === 'true') {
+            return true;
+        }
+        return false;
+    }
+}));
+
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
     res.render('main', {
@@ -45,7 +88,11 @@ app.get('/search.json', function(req, res) {
     }
     searchlib.search(req.query.q, 0, config.page_size, function(err, results) {
         if (err) {
-            throw err;
+            res.status(500);
+            res.set('Content-Type', 'application/json; Charset=utf-8');
+            return res.send(JSON.stringify({
+                error: err.message
+            }, false, 4));
         }
         res.set('Content-Type', 'application/json; Charset=utf-8');
         res.send(JSON.stringify({
@@ -64,7 +111,9 @@ function serveRSS(req, res) {
     }
     searchlib.search(req.query.q, 0, config.page_size, function(err, results) {
         if (err) {
-            throw err;
+            res.status(500);
+            res.set('Content-Type', 'text/plain; Charset=utf-8');
+            return res.send(err.message);
         }
         res.set('Content-Type', 'application/rss+xml; Charset=utf-8');
         res.render('rss', {
@@ -89,7 +138,9 @@ app.get('/search', function(req, res) {
 
     searchlib.search(req.query.q, from, config.page_size, function(err, results) {
         if (err) {
-            throw err;
+            res.status(500);
+            res.set('Content-Type', 'text/plain; Charset=utf-8');
+            return res.send(err.message);
         }
 
         var total = results && results.hits && results.hits.total || 0,

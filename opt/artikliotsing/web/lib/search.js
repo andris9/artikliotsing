@@ -1,10 +1,10 @@
 'use strict';
 
-var config = require("../config"),
+var config = require("config"),
     fetch = require("fetch"),
     moment = require("moment");
 
-moment.lang("et");
+moment.locale("et");
 
 module.exports.paging = paging;
 module.exports.search = search;
@@ -109,7 +109,7 @@ function search(query, from, size, callback){
             }
         };
 
-    fetch.fetchUrl(config.elasticsearch, {
+    fetch.fetchUrl(config.elasticsearch.search, {
       method:"GET",
       payload: JSON.stringify(searchObj)
     }, function(err, meta, body){
@@ -127,7 +127,7 @@ function search(query, from, size, callback){
             console.log(E);
             return callback(E);
         }
-//console.log(require("util").inspect(docs, false, 11));
+
         return callback(null, docs);
     });
 }

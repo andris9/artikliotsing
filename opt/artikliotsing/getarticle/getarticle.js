@@ -1,10 +1,10 @@
 'use strict';
 
-var config = require('./config');
+var config = require('config');
 var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var fetch = require('fetch');
-var debug = process.env.NODE_ENV != 'production';
+var debug = config.debug;
 var crypto = require('crypto');
 
 var rewriteUrlRules = [{
@@ -101,7 +101,9 @@ function fetchLoop() {
 }
 
 function fetchArticle(articleData) {
-    var articleUrl = config.apiUrl.replace(/FETCH_URL/, encodeURIComponent(rewriteUrl(articleData.url)));
+    var articleUrl = "http://www.diffbot.com/api/article?token=DIFFBOT_TOKEN&url=FETCH_URL".
+    replace(/DIFFBOT_TOKEN/, config.diffbotToken).
+    replace(/FETCH_URL/, encodeURIComponent(rewriteUrl(articleData.url)));
     fetch.fetchUrl(articleUrl, {
         timeout: 30 * 1000
     }, function(err, meta, body) {
@@ -171,7 +173,7 @@ function fetchArticle(articleData) {
 }
 
 function storeArticle(articleData) {
-    fetch.fetchUrl(config.elasticsearch.replace(/ARTICLE_ID/, crypto.createHash('sha1').update(articleData.url).digest('hex')), {
+    fetch.fetchUrl(config.elasticsearch.add.replace(/ARTICLE_ID/, crypto.createHash('sha1').update(articleData.url).digest('hex')), {
         method: 'PUT',
         payload: JSON.stringify(articleData)
     }, function(err, meta) {
