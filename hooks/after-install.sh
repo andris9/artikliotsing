@@ -1,5 +1,3 @@
 #!/bin/bash
 
-NAME="artikliotsing"
-
-# initctl start "${NAME}"
+# do nothing

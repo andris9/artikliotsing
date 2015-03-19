@@ -1,3 +1,3 @@
 #!/bin/bash
 
-initctl start artikliotsing
+initctl restart artikliotsing
