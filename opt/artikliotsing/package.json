@@ -1,7 +1,7 @@
 {
   "name": "artikliotsing",
   "private": true,
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Otsing Eesti veebimeediast",
   "repository": {
     "type": "git",

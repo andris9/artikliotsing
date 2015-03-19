@@ -123,7 +123,7 @@ function serveRSS(req, res) {
 
         var feed = feedster.createFeed({
             title: config.title,
-            description: 'Otsing Eesti veebimeediast',
+            description: 'Otsing Eesti veebimeediast: ' + req.query.q,
             link: config.url,
             generator: config.title + ' ' + packageData.version,
             language: 'et-ee',
@@ -134,7 +134,7 @@ function serveRSS(req, res) {
         });
 
         searchlib.formatResults(results).forEach(function(result) {
-            feed.addItem({
+            var item = {
                 title: result.title + ' – ' + result.site,
                 pubDate: result.date,
                 description: result.content,
@@ -145,7 +145,17 @@ function serveRSS(req, res) {
                     value: result.id,
                     isPermaLink: false
                 }
-            });
+            };
+
+            if (result.image) {
+                item.media = {
+                    url: result.image,
+                    medium: 'image',
+                    title: 'Attached image'
+                };
+            }
+
+            feed.addItem(item);
         });
 
         res.send(feed.render());
