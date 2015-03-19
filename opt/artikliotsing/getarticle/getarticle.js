@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('./config');
+var config = require('config');
 var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var fetch = require('fetch');
@@ -101,7 +101,9 @@ function fetchLoop() {
 }
 
 function fetchArticle(articleData) {
-    var articleUrl = config.apiUrl.replace(/FETCH_URL/, encodeURIComponent(rewriteUrl(articleData.url)));
+    var articleUrl = "http://www.diffbot.com/api/article?token=DIFFBOT_TOKEN&url=FETCH_URL".
+    replace(/DIFFBOT_TOKEN/, config.diffbotToken).
+    replace(/FETCH_URL/, encodeURIComponent(rewriteUrl(articleData.url)));
     fetch.fetchUrl(articleUrl, {
         timeout: 30 * 1000
     }, function(err, meta, body) {

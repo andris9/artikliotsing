@@ -1,4 +1,0 @@
-check process artikliotsing with pidfile /var/run/artikliotsing.pid
-   start program = "/etc/init.d/artikliotsing start"
-   stop program = "/etc/init.d/artikliotsing stop"
-   if 5 restarts within 5 cycles then timeout

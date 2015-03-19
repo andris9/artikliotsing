@@ -1,12 +1,12 @@
 {
-    "workers": 1,
+    "port": 8080,
+    "elasticsearch": "http://localhost:9200/articles/_search",
+    "page_size": 10,
     "redis": {
         "host": "localhost",
         "port": 6379,
         "db": 10
     },
-
-    "apiUrl": "http://www.diffbot.com/api/article?token=DIFFBOT_TOKEN&url=FETCH_URL",
-
+    "diffbotToken": "",
     "elasticsearch": "http://localhost:9200/articles/article/ARTICLE_ID"
 }

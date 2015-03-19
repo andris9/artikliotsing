@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('./config');
+var config = require('config');
 var urllib = require('url');
 var fetch = require('fetch');
 var sources = require('../shared/sources.json');
