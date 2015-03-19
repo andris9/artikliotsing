@@ -1,5 +1,3 @@
 #!/bin/bash
 
-NAME="artikliotsing"
-
-initctl restart "${NAME}"
+initctl start artikliotsing

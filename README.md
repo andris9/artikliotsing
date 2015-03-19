@@ -35,7 +35,6 @@ Edaspidi pole koodi uuendamiseks vaja teha muud kui:
 
     sudo apt-get update
     sudo apt-get install --only-upgrade artikliotsing
-    service artikliotsing start
 
 ## Litsents
 
