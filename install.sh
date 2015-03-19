@@ -23,6 +23,8 @@ if [ `which redis-server` ] ; then
     tput sgr0
 else
     echo -en "\033[1mInstallin Redis serveri\033[0m"
+    echo ""
+    tput sgr0
     apt-add-repository ppa:chris-lea/redis-server -y
     REPOS="$REPOS redis-server"
 fi
@@ -34,6 +36,8 @@ if [ `which elasticsearch` ] ; then
     tput sgr0
 else
     echo -en "\033[1mInstallin ElasticSearch serveri\033[0m"
+    echo ""
+    tput sgr0
     wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
     add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
     REPOS="$REPOS openjdk-7-jre-headless elasticsearch"
@@ -47,6 +51,8 @@ if [ `which elasticsearch` ] ; then
     tput sgr0
 else
     echo -en "\033[1mInstallin Node.js platvormi\033[0m"
+    echo ""
+    tput sgr0
     curl -sL https://deb.nodesource.com/setup | bash
     REPOS="$REPOS nodejs"
 fi
@@ -57,6 +63,8 @@ if [ -d "/etc/artikliotsing.d" ]; then
     tput sgr0
 else
     echo -en "\033[1mLisan artikliotsingu repo\033[0m"
+    echo ""
+    tput sgr0
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
     add-apt-repository "deb http://public.kreata.ee/ trusty main"
 fi
@@ -78,4 +86,6 @@ echo "{\"diffbotToken\": \"${DIFFBOT_TOKEN}\", \"port\": ${HTTP_PORT}}" > /etc/a
 
 initctl start artikliotsing
 
-echo "Installeerimine õnnestus!"
+echo -en "\033[1mInstalleerimine õnnestus!\033[0m"
+echo ""
+tput sgr0
