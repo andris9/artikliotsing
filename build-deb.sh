@@ -16,10 +16,7 @@ fpm -s dir -t deb -n ${NAME} -v $VERSION -C . \
   -d "elasticsearch" \
   -d "redis-server" \
   --description "Otsing Eesti veebimeediast" \
-  --before-install "hooks/before-install.sh" \
   --after-install "hooks/after-install.sh" \
-  --before-upgrade "hooks/before-upgrade.sh" \
-  --after-upgrade "hooks/after-upgrade.sh" \
   --before-remove "hooks/before-remove.sh" \
   etc opt/artikliotsing \
   && echo "Package successfully built"

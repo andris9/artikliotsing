@@ -91,9 +91,11 @@ fi
 
 apt-get install -y artikliotsing
 
+initctl stop artikliotsing || true
+
 echo "{\"diffbotToken\": \"${DIFFBOT_TOKEN}\", \"port\": ${HTTP_PORT}}" > /etc/artikliotsing.d/production.json
 
-initctl start artikliotsing
+initctl start artikliotsing || true
 
 echo -en "\033[1mInstalleerimine õnnestus!\033[0m"
 echo ""
