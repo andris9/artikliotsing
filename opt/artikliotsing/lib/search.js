@@ -5,7 +5,7 @@ var fetch = require('fetch');
 var moment = require('moment');
 var log = require('npmlog');
 
-moment.locale('et');
+moment.locale('en');
 
 module.exports.paging = paging;
 module.exports.search = search;
@@ -19,7 +19,7 @@ function formatResults(results) {
         var element = {
             url: doc._source.url,
             site: doc._source.site,
-            humanized_date: moment(doc._source.date).fromNow(),
+            humanized_date: moment(doc._source.date, false, 'et').fromNow(),
             date: new Date(doc._source.date),
             found: new Date(doc._source.found),
             title: keepStrong(doc.highlight && doc.highlight.title && doc.highlight.title.join(' ... ').trim() ||  doc._source.title),

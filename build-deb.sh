@@ -18,5 +18,7 @@ fpm -s dir -t deb -n ${NAME} -v $VERSION -C . \
   --description "Otsing Eesti veebimeediast" \
   --before-remove "hooks/before-remove.sh" \
   --after-install "hooks/after-install.sh" \
+  --before-upgrade "hooks/before-upgrade.sh" \
+  --after-upgrade "hooks/after-upgrade.sh" \
   etc opt/artikliotsing \
   && echo "Package successfully built"

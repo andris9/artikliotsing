@@ -14,6 +14,7 @@ var log = require('npmlog');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var feedster = require('feedster');
+var packageData = require('../package.json');
 
 var mount = st({
     path: pathlib.join(__dirname, '../public'),
@@ -118,21 +119,27 @@ function serveRSS(req, res) {
             res.set('Content-Type', 'text/plain; Charset=utf-8');
             return res.send(err.message);
         }
-        res.set('Content-Type', 'application/rss+xml; Charset=utf-8');
+        res.set('Content-Type', 'application/rss+xml; charset=utf-8');
 
         var feed = feedster.createFeed({
             title: config.title,
             description: 'Otsing Eesti veebimeediast',
-            link: config.url
+            link: config.url,
+            generator: config.title + ' ' + packageData.version,
+            language: 'et-ee',
+            atomLink: {
+                href: options.url + req.url,
+                rel: 'self' // type is automatically for "self"
+            }
         });
 
         searchlib.formatResults(results).forEach(function(result) {
             feed.addItem({
-                title: result.site + ': ' + result.title,
+                title: result.title + ' – ' + result.site,
                 pubDate: result.date,
                 description: result.content,
                 content: result.html,
-                url: result.url,
+                link: result.url,
                 creator: result.author
             });
         });
