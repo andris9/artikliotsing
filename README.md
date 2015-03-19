@@ -8,7 +8,7 @@ Rakendus on arendatud ja testitud Ubuntu 14.04 LTS Server versiooniga.
 
 ## Install
 
-Rakendus töötab Ubuntu serveris. Selle jaoks käivita installer
+Rakendus töötab Ubuntu serveris ja selle saab installida *apg-get* pakihalduriga. Artikliotsing eeldab mõningaid täiendavaid rakendusi, mida standard repositooriumitest ei saa, nimelt *elasticsearch*, *redis-server* ja *nodejs*. Selleks, et kõik vajalikud eeldused koos Artikliotsingu rakendusega serverisse installida võid kasutada installerit.
 
     wget "https://raw.githubusercontent.com/andris9/artikliotsing/master/install.sh"
     chmod +x install.sh
@@ -16,20 +16,26 @@ Rakendus töötab Ubuntu serveris. Selle jaoks käivita installer
 
 Installiskript küsib kahte väärtust - [diffbot.com](http://diffbot.com) tokenit ning porti, millel veebiserverit jooksutada. Kui samas masinas on apache vmt. siis tõenäoliselt porti 80 kasutada ei saa ja tuleb valida midagi muud. Sellisel juhul tuleks tulemüürist jälgida, et see port oleks ka avatud.
 
-Edaspidi koodi uuendamiseks pole vaja teha muud kui:
+Kui tahad aga ise oma pakke hallata või kui sul on vajalikud rakendused juba olemas, võid kasutada otse artikliotsingu repositiooriumit:
+
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
+    add-apt-repository "deb http://public.kreata.ee/ trusty main"
+
+ja seejärel
+
+    apt-get update
+    apt-get install artikliotsing
+    service artikliotsing start
+
+Sellisel juhul muuda konfiguratsioonifaili /etc/artikliotsing.d/default.json ja lisa sinna diffbot token ja http pordi väärtus käsitsi.
+
+### Uuendamine
+
+Edaspidi pole koodi uuendamiseks vaja teha muud kui:
 
     sudo apt-get update
     sudo apt-get install --only-upgrade artikliotsing
-
-Seda kas valitud port on juba hõivatud saab kontrollida järgmise käsuga (asenda 80 endale sobiva pordiga):
-
-```bash
-netstat -ln | grep ':80 ' | grep 'LISTEN'
-```
-
-Juhul kui vastus on tühi, on port vaba.
-
-Kui vigu ei esinenud (install lõppeb teatega "Installeerimine õnnestus"), ongi rakendus installitud ning võib avada aadressi http://masinanimi:port
+    service artikliotsing start
 
 ## Litsents
 
