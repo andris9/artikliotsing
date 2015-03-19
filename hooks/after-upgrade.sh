@@ -1,3 +1,6 @@
 #!/bin/bash
 
-initctl restart artikliotsing
+NAME="artikliotsing"
+
+initctl stop ${NAME} || true
+initctl start ${NAME} || true
