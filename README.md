@@ -16,6 +16,11 @@ Rakendus töötab Ubuntu serveris. Selle jaoks käivita installer
 
 Installiskript küsib kahte väärtust - [diffbot.com](http://diffbot.com) tokenit ning porti, millel veebiserverit jooksutada. Kui samas masinas on apache vmt. siis tõenäoliselt porti 80 kasutada ei saa ja tuleb valida midagi muud. Sellisel juhul tuleks tulemüürist jälgida, et see port oleks ka avatud.
 
+Edaspidi koodi uuendamiseks pole vaja teha muud kui:
+
+    sudo apt-get update
+    sudo apt-get install --only-upgrade artikliotsing
+
 Seda kas valitud port on juba hõivatud saab kontrollida järgmise käsuga (asenda 80 endale sobiva pordiga):
 
 ```bash
