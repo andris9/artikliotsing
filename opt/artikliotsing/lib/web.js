@@ -128,7 +128,7 @@ function serveRSS(req, res) {
             generator: config.title + ' ' + packageData.version,
             language: 'et-ee',
             atomLink: {
-                href: options.url + req.url,
+                href: config.url + req.url,
                 rel: 'self' // type is automatically for "self"
             }
         });
