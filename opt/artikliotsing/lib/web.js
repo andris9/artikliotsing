@@ -142,7 +142,7 @@ function serveRSS(req, res) {
                 link: result.url,
                 creator: result.author,
                 guid: {
-                    value: result.id
+                    value: result.id,
                     isPermaLink: false
                 }
             });
