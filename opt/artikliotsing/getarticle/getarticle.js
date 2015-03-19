@@ -4,7 +4,7 @@ var config = require('config');
 var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var fetch = require('fetch');
-var debug = process.env.NODE_ENV != 'production';
+var debug = config.debug;
 var crypto = require('crypto');
 
 var rewriteUrlRules = [{
@@ -173,7 +173,7 @@ function fetchArticle(articleData) {
 }
 
 function storeArticle(articleData) {
-    fetch.fetchUrl(config.elasticsearch.replace(/ARTICLE_ID/, crypto.createHash('sha1').update(articleData.url).digest('hex')), {
+    fetch.fetchUrl(config.elasticsearch.add.replace(/ARTICLE_ID/, crypto.createHash('sha1').update(articleData.url).digest('hex')), {
         method: 'PUT',
         payload: JSON.stringify(articleData)
     }, function(err, meta) {

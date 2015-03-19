@@ -10,7 +10,7 @@ var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var crypto = require('crypto');
 var NodePie = require('nodepie');
-var debug = process.env.NODE_ENV != 'production';
+var debug = config.debug;
 var urllib = require('url');
 
 syncLoop();

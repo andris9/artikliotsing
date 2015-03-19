@@ -109,7 +109,7 @@ function search(query, from, size, callback){
             }
         };
 
-    fetch.fetchUrl(config.elasticsearch, {
+    fetch.fetchUrl(config.elasticsearch.search, {
       method:"GET",
       payload: JSON.stringify(searchObj)
     }, function(err, meta, body){
