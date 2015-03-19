@@ -1,3 +1,3 @@
 #!/bin/bash
 
-# do nothing
+NAME="artikliotsing"
