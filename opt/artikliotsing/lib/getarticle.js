@@ -4,8 +4,9 @@ var config = require('config');
 var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var fetch = require('fetch');
-var debug = config.debug;
+var debug = !!config.debug;
 var crypto = require('crypto');
+var log = require('npmlog');
 
 var rewriteUrlRules = [{
     from: /^http:\/\/(www\.)?ohtuleht\.ee\b/i,
@@ -56,8 +57,7 @@ function fetchLoop() {
         var articleData;
 
         if (err) {
-            console.log('Redis error ' + Date());
-            console.log(err);
+            log.error('Redis', err);
             setTimeout(fetchLoop, 5000);
             return;
         }
@@ -73,8 +73,7 @@ function fetchLoop() {
             articleData = JSON.parse(articleData);
         } catch (E) {
             if (debug) {
-                console.log('Redis error: invalid JSON ' + Date());
-                console.log(E);
+                log.error('Redis', E);
             }
             setTimeout(fetchLoop, 5000);
             return;
@@ -82,7 +81,7 @@ function fetchLoop() {
 
         if (!articleData.url) {
             if (debug) {
-                console.log('JSON error: empty URL ' + Date());
+                log.error('JSON', 'JSON error: empty URL ' + Date());
             }
             setTimeout(fetchLoop, 5000);
             return;
@@ -93,7 +92,7 @@ function fetchLoop() {
         }
 
         if (debug) {
-            console.log('Fetching article from ' + articleData.url);
+            log.verbose('Getarticle', 'Fetching article from ' + articleData.url);
         }
         fetchArticle(articleData);
     });
@@ -110,24 +109,20 @@ function fetchArticle(articleData) {
         var data;
 
         if (err) {
-            console.log('Fetch error ' + Date() + ' ' + articleUrl);
-            console.log(err);
+            log.error('Fetch', articleUrl);
+            log.error('Fetch', err);
             setTimeout(fetchLoop, 5000);
             return;
         }
 
         if (meta.status != 200) {
-            if (debug) {
-                console.log('Fetch error: Invalid status ' + meta.status + ' ' + Date());
-            }
+            log.error('Fetch', 'Invalid status %s for %s', meta.status, articleUrl);
             setTimeout(fetchLoop, 5000);
             return;
         }
 
         if (!body || !body.length) {
-            if (debug) {
-                console.log('Fetch error: empty response ' + Date());
-            }
+            log.error('Fetch', 'empty response for %s', articleUrl);
             setTimeout(fetchLoop, 5000);
             return;
         }
@@ -135,27 +130,19 @@ function fetchArticle(articleData) {
         try {
             data = JSON.parse(body && body.toString());
         } catch (E) {
-            if (debug) {
-                console.log('Fetch error: invalid JSON ' + Date());
-                console.log(E);
-            }
+            log.error('Fetch', E);
             setTimeout(fetchLoop, 5000);
             return;
         }
 
         if (data.error && data.errorCode) {
-            if (debug) {
-                console.log('Fetch error: invalid source ' + Date());
-                console.log(data.error);
-            }
+            log.error('Fetch', data.error);
             setTimeout(fetchLoop, 5000);
             return;
         }
 
         if (!data.text) {
-            if (debug) {
-                console.log('Fetch error: empty article ' + Date());
-            }
+            log.error('Fetch', 'Empty article %s', articleUrl);
             process.nextTick(fetchLoop);
             return;
         }
@@ -178,12 +165,11 @@ function storeArticle(articleData) {
         payload: JSON.stringify(articleData)
     }, function(err, meta) {
         if (err) {
-            console.log('ElasticSearch error ' + Date());
-            console.log(err);
+            log.error('ElasticSearch', err);
         }
 
         if (meta && debug) {
-            console.log('ElasticSearch response: ' + meta.status);
+            log.info('ElasticSearch', 'Store status %s for %s', meta.status, articleData.url);
         }
 
         process.nextTick(fetchLoop);

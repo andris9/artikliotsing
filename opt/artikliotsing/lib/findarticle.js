@@ -3,15 +3,16 @@
 var config = require('config');
 var urllib = require('url');
 var fetch = require('fetch');
-var sources = require('../shared/sources.json');
+var sources = require('../sources.json');
 var sortedSources = processSources(sources);
 var resolver = require('resolver');
 var redis = require('redis');
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
 var crypto = require('crypto');
 var NodePie = require('nodepie');
-var debug = config.debug;
+var debug = !!config.debug;
 var urllib = require('url');
+var log = require('npmlog');
 
 syncLoop();
 
@@ -20,13 +21,12 @@ function syncLoop() {
     var source = sources[0];
 
     if (debug) {
-        console.log('syncLoop: checking ' + source.id);
+        log.verbose('syncLoop', 'Checking %s', source.id);
     }
 
     checkFeed(source.url, source.feed, function(err, items) {
         if (debug) {
-            console.log('Feed checked');
-            console.log('syncLoop: found ' + items + ' new articles');
+            log.verbose('SyncLoop', 'Found %s new articles', items);
         }
         setTimeout(syncLoop, 10 * 1000);
     });
@@ -36,30 +36,23 @@ function checkFeed(siteUrl, feedUrl, callback) {
     var feed;
 
     if (debug) {
-        console.log('checkFeed: fetching ' + feedUrl + ' (' + Date() + ')');
+        log.verbose('CheckFeed', 'Fetching %s', feedUrl);
     }
     fetch.fetchUrl(feedUrl, {
         timeout: 45 * 1000
     }, function(err, meta, body) {
         if (err) {
-            console.log('Fetch url ' + Date() + ' ' + feedUrl);
-            console.log(err);
+            log.error('CheckFeed', err);
             return callback(err);
         }
         if (meta.status != 200) {
-            if (debug) {
-                console.log('checkFeed: Invalid status ' + meta.status);
-            }
+            log.error('CheckFeed', 'Status %s for %s', meta.status, feedUrl);
             return callback(null, false);
         }
 
-        var items = [],
-            newItems = 0,
-            counter = 0;
-
-        if (debug) {
-            console.log('checkFeed: Creating new NodePie');
-        }
+        var items = [];
+        var newItems = 0;
+        var counter = 0;
 
         try {
             feed = new NodePie(body);
@@ -70,8 +63,8 @@ function checkFeed(siteUrl, feedUrl, callback) {
                 feed = new NodePie(new Buffer(body.toString().replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F]/g, ''), 'utf-8'));
                 feed.init();
             } catch (E) {
-                console.log('Error opening RSS/Atom file ' + feedUrl);
-                console.log(E);
+                log.error('NodePie', 'Error opening RSS/Atom file %s', feedUrl);
+                log.error('NodePie', E);
                 return callback(err);
             }
         }
@@ -96,12 +89,11 @@ function checkFeed(siteUrl, feedUrl, callback) {
             var item = items[counter++];
 
             if (debug) {
-                console.log('processItems: resolving ' + item.url + ' (' + Date() + ')');
+                log.verbose('ProcessItems', 'Resolving %s', item.url);
             }
             resolve(item.url, function(err, url) {
                 if (err) {
-                    console.log('Resolver error ' + Date());
-                    console.log(err);
+                    log.error('ProcessItems', err);
                     return process.nextTick(processItems);
                 }
                 item.url = url;
@@ -111,20 +103,19 @@ function checkFeed(siteUrl, feedUrl, callback) {
 
                 if (item.url) {
                     if (debug) {
-                        console.log('processItems: checking article ' + item.url + ' (' + Date() + ')');
+                        log.verbose('ProcessItems', 'Checking article %s', item.url);
                     }
                     checkArticle(item.url, function(err, exists) {
                         if (err) {
-                            console.log(err);
+                            log.error('ProcessItems', err);
                             return process.nextTick(processItems);
                         }
                         if (exists) {
                             return process.nextTick(processItems);
                         }
 
-                        if (debug) {
-                            console.log('processItems: found new article ' + item.url);
-                        }
+                        log.info('ProcessItems', 'Found new article %s', item.url);
+
                         newItems++;
                         redisClient.multi().
                         select(config.redis.db).
@@ -136,16 +127,13 @@ function checkFeed(siteUrl, feedUrl, callback) {
                         exec(processItems);
                     });
                 } else {
-                    if (debug) {
-                        console.log('processItems: empty url (' + Date() + ')');
-                    }
                     return process.nextTick(processItems);
                 }
             });
         };
 
         if (debug) {
-            console.log('checkFeed: processing ' + feed.getItemQuantity() + ' items (' + Date() + ')');
+            log.verbose('CheckFeed', 'Processing %s items', feed.getItemQuantity());
         }
         processItems();
     });
@@ -172,11 +160,11 @@ function detectSite(itemUrl, siteUrl) {
 
 function checkArticle(url, callback) {
     if (debug) {
-        console.log('checkArticle: resolving ' + url + ' (' + Date() + ')');
+        log.verbose('CheckArticle', 'Resolving %s', url);
     }
     resolve(url, function(err, url) {
         if (err) {
-            console.log(err);
+            log.error('CheckArticle', err);
             return callback(err);
         }
 
@@ -185,7 +173,7 @@ function checkArticle(url, callback) {
         get('recent:' + md5(url)).
         exec(function(err, replies) {
             if (err) {
-                console.log(err);
+                log.error('Redis', err);
                 return callback(err);
             }
             if (replies && replies[1]) {

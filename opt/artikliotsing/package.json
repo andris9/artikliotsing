@@ -20,6 +20,7 @@
     "config": "^1.12.0",
     "ejs": "^2.3.1",
     "express": "^4.12.3",
+    "feedster": "^1.0.0",
     "fetch": "^0.3.6",
     "hiredis": "^0.2.0",
     "method-override": "^2.3.2",

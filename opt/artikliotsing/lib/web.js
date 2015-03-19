@@ -4,8 +4,8 @@ var config = require('config');
 var pathlib = require('path');
 var express = require('express');
 var http = require('http');
-var searchlib = require('./lib/search');
-var sources = require('../shared/sources.json');
+var searchlib = require('./search');
+var sources = require('../sources.json');
 var app = express();
 var morgan = require('morgan');
 var compression = require('compression');
@@ -13,9 +13,10 @@ var st = require('st');
 var log = require('npmlog');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var feedster = require('feedster');
 
 var mount = st({
-    path: pathlib.join(__dirname, 'public'),
+    path: pathlib.join(__dirname, '../public'),
     url: '/',
     dot: false,
     index: false,
@@ -32,7 +33,7 @@ var mount = st({
 
 app.set('port', config.port || 8080);
 app.disable('x-powered-by');
-app.set('views', pathlib.join(__dirname, 'views'));
+app.set('views', pathlib.join(__dirname, '../views'));
 app.use(compression());
 app.use(function(req, res, next) {
     mount(req, res, function() {
@@ -70,7 +71,8 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
     res.render('main', {
         body: 'main',
-        query: ''
+        query: '',
+        title: config.title
     });
 });
 
@@ -78,7 +80,8 @@ app.get('/about', function(req, res) {
     res.render('main', {
         body: 'about',
         query: '',
-        sources: sources
+        sources: sources,
+        title: config.title
     });
 });
 
@@ -116,15 +119,25 @@ function serveRSS(req, res) {
             return res.send(err.message);
         }
         res.set('Content-Type', 'application/rss+xml; Charset=utf-8');
-        res.render('rss', {
-            title: 'artiklid.tahvel.info',
-            query: req.query.q,
-            encoded_query: encodeURIComponent(req.query.q),
-            domain: req.headers.host ||  'localhost',
-            pub_date: results.hits.hits.length && results.hits.hits[0]._source.found || new Date(),
-            results: searchlib.formatResults(results),
-            fulltext: (req.query.fulltext ||  '').toString().trim().toLowerCase() == 'true'
+
+        var feed = feedster.createFeed({
+            title: config.title,
+            description: 'Otsing Eesti veebimeediast',
+            link: config.url
         });
+
+        searchlib.formatResults(results).forEach(function(result) {
+            feed.addItem({
+                title: result.site + ': ' + result.title,
+                pubDate: result.date,
+                description: result.content,
+                content: result.html,
+                url: result.url,
+                creator: result.author
+            });
+        });
+
+        res.send(feed.render());
     });
 }
 
@@ -160,7 +173,8 @@ app.get('/search', function(req, res) {
             results: results,
             page_list: searchlib.paging(page, pages),
             visible_results: searchlib.formatResults(results),
-            fulltext: (req.query.fulltext ||  '').toString().trim().toLowerCase() == 'true'
+            fulltext: (req.query.fulltext ||  '').toString().trim().toLowerCase() == 'true',
+            title: config.title
         });
 
     });
@@ -175,11 +189,11 @@ app.post('/search', function(req, res) {
 });
 
 http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+    log.info('Express', 'Express server listening on port %s', app.get('port'));
     try {
         process.setgid('nogroup');
         process.setuid('nobody');
     } catch (E) {
-        console.log('Failed giving up root privileges');
+        log.error('App', 'Failed giving up root privileges');
     }
 });

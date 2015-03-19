@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title><%= title %><% if(query){%> → <%= query %><%}%></title>
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/theme.css" />
+        <link rel="stylesheet" type="text/css" href="/search.css" />
+        <style type="text/css">
+            /* Sticky footer styles
+            -------------------------------------------------- */
+
+/* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+        padding-top: 0;
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+        color: #fff;
+      }
+      #footer a{
+        color: #fff;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      #wrap > .container {
+        /* padding-top: 60px; */
+      }
+      .container .credit {
+        margin: 20px 0;
+      }
+
+      code {
+        font-size: 80%;
+      }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+        <div class="navbar navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+              <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-search"></span> <%= title %></a>
+              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <div class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav">
+                <li
+                    <% if (body == "main") { %>
+                        class="active"
+                    <% } %>
+                ><a href="/">Esileht</a></li>
+                <li
+                    <% if (body == "about") { %>
+                        class="active"
+                    <% } %>
+                ><a href="/about">Projektist</a></li>
+                <li><a href="https://github.com/andris9/artikliotsing">GitHub</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+
+            <div class="page-header">
+                <h1><%= title %></h1>
+                <p class="lead">
+                    Otsi Eesti internetiväljaannete artiklite hulgast
+                </p>
+            </div>
+
+            <form method="post" action="/search">
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" id="q-input" placeholder="Sisesta otsingusõnad" value="<%= query %>">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Otsi</button>
+              </div>
+            </div>
+
+            </form>
+
+            <hr />
+
+            <% if (body == "main") { %>
+                <% include abi %>
+            <% } %>
+
+            <% if (body == "search") { %>
+                <% include search %>
+            <% } %>
+
+            <% if (body == "about") { %>
+                <% include about %>
+            <% } %>
+
+        </div> <!-- /container -->
+
+        <!-- Footer
+        ================================================== -->
+        <div id="push"></div>
+        </div>
+
+        <div id="footer" style="background: #bf3e11;">
+            <div class="container">
+                <p class="muted credit">&copy; 2013 - <%= new Date().getFullYear() %> Andris Reinman <a href="mailto:andris@kreata.ee">andris@kreata.ee</a></p>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-51322-39']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+    </body>
+</html>

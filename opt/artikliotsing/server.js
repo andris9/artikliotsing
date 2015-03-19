@@ -1,5 +1,5 @@
 'use strict';
 
-require('./web/web');
-require('./findarticle/findarticle');
-require('./getarticle/getarticle');
+require('./lib/web');
+require('./lib/findarticle');
+require('./lib/getarticle');

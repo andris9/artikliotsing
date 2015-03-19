@@ -1,4 +1,6 @@
 {
+    "title": "Artikliotsing",
+    "url": "http://artiklid.tahvel.info",
     "port": 8080,
     "elasticsearch": {
         "search": "http://localhost:9200/articles/_search",
