@@ -10,7 +10,9 @@ Rakendus on arendatud ja testitud Ubuntu 14.04 LTS Server versiooniga.
 
 Rakendus töötab Ubuntu serveris. Selle jaoks käivita installer
 
-    curl "https://raw.githubusercontent.com/andris9/artikliotsing/master/install.sh" | sudo bash
+    wget "https://raw.githubusercontent.com/andris9/artikliotsing/master/install.sh"
+    chmod +x install.sh
+    sudo ./install.sh
 
 Installiskript küsib kahte väärtust - [diffbot.com](http://diffbot.com) tokenit ning porti, millel veebiserverit jooksutada. Kui samas masinas on apache vmt. siis tõenäoliselt porti 80 kasutada ei saa ja tuleb valida midagi muud. Sellisel juhul tuleks tulemüürist jälgida, et see port oleks ka avatud.
 

@@ -23,7 +23,7 @@ if [ `which redis-server` ] ; then
     tput sgr0
 else
     echo -en "\033[1mInstallin Redis serveri\033[0m"
-    apt-add-repository ppa:chris-lea/redis-server
+    apt-add-repository ppa:chris-lea/redis-server -y
     REPOS="$REPOS redis-server"
 fi
 
