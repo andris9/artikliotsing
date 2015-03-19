@@ -11,5 +11,5 @@
         "db": 10
     },
     "diffbotToken": "",
-    "debug": true
+    "debug": false
 }

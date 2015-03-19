@@ -35,6 +35,9 @@ if [ `which elasticsearch` ] ; then
     echo ""
     tput sgr0
 else
+    echo -en "\033[1mInstallin ElasticSearch serveri\033[0m"
+    echo ""
+    tput sgr0
 
     if [ `which java` ] ; then
         echo "Java on juba installitud, jätan vahele"
@@ -43,9 +46,6 @@ else
         REPOS="$REPOS openjdk-7-jre-headless"
     fi
 
-    echo -en "\033[1mInstallin ElasticSearch serveri\033[0m"
-    echo ""
-    tput sgr0
     wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
     add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
     REPOS="$REPOS elasticsearch"
