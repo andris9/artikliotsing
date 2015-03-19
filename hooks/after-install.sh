@@ -2,4 +2,4 @@
 
 NAME="artikliotsing"
 
-initctl start "${NAME}"
+# initctl start "${NAME}"
