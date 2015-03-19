@@ -2,7 +2,7 @@
 
 ## Eeldused
 
-See juhis töötab Ubuntu põhistes masinates. Sobivad nii VirtualBox serverid kohalikus masinas, kui ka Amazon EC2, Rackspace vmt. virtuaalserverid. Eelnevalt midagi muud installida ei ole vaja. Parem olekski kasutada täiesti tühja Ubuntu 12.04+ serverit, kuna siis on konfliktide oht väiksem.
+See juhis töötab Ubuntu põhistes masinates. Sobivad nii VirtualBox serverid kohalikus masinas, kui ka Amazon EC2, Rackspace vmt. virtuaalserverid. Eelnevalt midagi muud installida ei ole vaja. Parem olekski kasutada täiesti tühja Ubuntu 14.04+ serverit, kuna siis on konfliktide oht väiksem.
 
 Rakendus on arendatud ja testitud Ubuntu 14.04 LTS Server versiooniga.
 
