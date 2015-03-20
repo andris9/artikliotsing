@@ -45,7 +45,7 @@ var rewriteTextRules = [{
     to: ''
 }];
 
-fetchLoop();
+module.exports = fetchLoop;
 
 function fetchLoop() {
 

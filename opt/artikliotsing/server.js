@@ -8,5 +8,5 @@ if (!config.diffbotToken) {
 }
 
 require('./lib/web');
-require('./lib/findarticle');
-require('./lib/getarticle');
+require('./lib/findarticle')();
+require('./lib/getarticle')();

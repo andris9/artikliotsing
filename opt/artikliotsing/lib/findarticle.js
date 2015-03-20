@@ -14,7 +14,7 @@ var debug = !!config.debug;
 var urllib = require('url');
 var log = require('npmlog');
 
-syncLoop();
+module.exports = syncLoop;
 
 function syncLoop() {
     sources.unshift(sources.pop());
@@ -39,7 +39,8 @@ function checkFeed(siteUrl, feedUrl, callback) {
         log.verbose('CheckFeed', 'Fetching %s', feedUrl);
     }
     fetch.fetchUrl(feedUrl, {
-        timeout: 45 * 1000
+        timeout: 45 * 1000,
+        disableDecoding: true
     }, function(err, meta, body) {
         if (err) {
             log.error('CheckFeed', err);
