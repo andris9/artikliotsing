@@ -74,8 +74,8 @@ else
     echo -en "\033[1mLisan artikliotsingu repo\033[0m"
     echo ""
     tput sgr0
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
-    add-apt-repository "deb http://public.kreata.ee/ trusty main"
+    curl https://packagecloud.io/gpg.key | apt-key add -
+    add-apt-repository "deb https://packagecloud.io/andris9/artikliotsing/ubuntu/ trusty main"
 fi
 
 apt-get update
