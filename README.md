@@ -19,7 +19,7 @@ Installiskript küsib kahte väärtust - [diffbot.com](http://diffbot.com) token
 Kui tahad aga ise oma pakke hallata või kui sul on vajalikud rakendused juba olemas, võid kasutada otse artikliotsingu repositiooriumit:
 
     curl https://packagecloud.io/gpg.key | apt-key add -
-    add-apt-repository "deb https://packagecloud.io/andris9/artikliotsing/ubuntu/ precise main"
+    add-apt-repository "deb https://packagecloud.io/andris9/artikliotsing/ubuntu/ trusty main"
 
 ja seejärel
 
