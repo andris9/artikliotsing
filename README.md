@@ -18,8 +18,8 @@ Installiskript küsib kahte väärtust - [diffbot.com](http://diffbot.com) token
 
 Kui tahad aga ise oma pakke hallata või kui sul on vajalikud rakendused juba olemas, võid kasutada otse artikliotsingu repositiooriumit:
 
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCB2C812
-    add-apt-repository "deb http://public.kreata.ee/ trusty main"
+    curl https://packagecloud.io/gpg.key | apt-key add -
+    add-apt-repository "deb https://packagecloud.io/andris9/artikliotsing/ubuntu/ precise main"
 
 ja seejärel
 
